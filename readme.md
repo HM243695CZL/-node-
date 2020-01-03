@@ -23,3 +23,7 @@
     > 新歌 `cloud_music_new_song`
     
     > 云村精选 `cloud_music_select`
+    
+### 注：
+  - 需要在public目录下再创建`img`文件夹用于上传文件时的保存路径
+  - 和public目录同级再创建一个`log`文件夹，用于保存日志

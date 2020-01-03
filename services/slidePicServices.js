@@ -9,11 +9,12 @@ exports.addSlidePic = (req, res, next) => {
         var sql = "select * from cloud_music_slide_pic where id = ?";
         db.base(sql, [params.id], resultFileName => {
             var fileName = JSON.parse(JSON.stringify(resultFileName))[0].slideImg;
-            fs.unlink(`public/img/slidePic/${fileName}`, err => {
-                if(err){
-                    console.log(err);
-                }else{
-                    db.updateData("cloud_music_slide_pic", ["imgType", "slideImg"], [params.imgType, global.uploadFileName, params.id], err => {
+            if(params.slideImg === ""){
+                db.updateData(
+                    "cloud_music_slide_pic",
+                    ["imgType"],
+                    [params.imgType, params.id],
+                    err => {
                         if(err.effectedRows !== 0){
                             res.json({
                                 status: 200,
@@ -27,9 +28,35 @@ exports.addSlidePic = (req, res, next) => {
                                 data: {}
                             })
                         }
-                    })
-                }
-            })
+                    }
+                )
+            }else{
+                fs.unlink(`public/img/slidePic/${fileName}`, err => {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        db.updateData(
+                            "cloud_music_slide_pic",
+                            ["imgType", "slideImg"],
+                            [params.imgType, global.uploadFileName, params.id],
+                                err => {
+                            if(err.effectedRows !== 0){
+                                res.json({
+                                    status: 200,
+                                    errMsg: "",
+                                    data: {}
+                                })
+                            }else{
+                                res.json({
+                                    status: 500,
+                                    errMsg: "修改失败",
+                                    data: {}
+                                })
+                            }
+                        })
+                    }
+                })
+            }
         });
     }else{
         //新增

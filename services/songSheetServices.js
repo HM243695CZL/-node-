@@ -9,12 +9,13 @@ exports.addSongSheet = (req, res, next) => {
         var sqlS = "select * from cloud_music_song_sheet where id = ?";
         db.base(sqlS, [params.id], resultFileName => {
             var fileName = JSON.parse(JSON.stringify(resultFileName))[0].songSheetImg;
-            fs.unlink(`public/img/songSheet/${fileName}`, err => {
-                if(err){
-                    console.log(err);
-                }else{
-                    db.updateData("cloud_music_song_sheet", ["songSheetName", "songSheetImg"], [params.songSheetName, global.uploadFileName, params.id], err => {
-                        if(err.affectedRows !== 0){
+            if(params.songSheetImg === ""){
+                db.updateData(
+                    "cloud_music_song_sheet",
+                    ["songSheetName"],
+                    [params.songSheetName, params.id],
+                    err => {
+                        if(err.effectedRows !== 0){
                             res.json({
                                 status: 200,
                                 errMsg: "",
@@ -27,9 +28,35 @@ exports.addSongSheet = (req, res, next) => {
                                 data: {}
                             })
                         }
-                    })
-                }
-            })
+                    }
+                )
+            }else{
+                fs.unlink(`public/img/songSheet/${fileName}`, err => {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        db.updateData(
+                            "cloud_music_song_sheet",
+                            ["songSheetName", "songSheetImg"],
+                            [params.songSheetName, global.uploadFileName, params.id],
+                                err => {
+                            if(err.affectedRows !== 0){
+                                res.json({
+                                    status: 200,
+                                    errMsg: "",
+                                    data: {}
+                                })
+                            }else{
+                                res.json({
+                                    status: 500,
+                                    errMsg: "修改失败",
+                                    data: {}
+                                })
+                            }
+                        })
+                    }
+                })
+            }
         })
     }else{
         //新增

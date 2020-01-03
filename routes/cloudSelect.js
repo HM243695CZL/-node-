@@ -47,25 +47,151 @@ let multipleFields = upload.fields([
 router.post("/addCloudSelect", (req, res) => {
     multipleFields(req, res, (err) => {
         var params = req.body;
+        var fileList = [];
+        for ( let item in req.files){
+            var fieldItem = req.files[item];
+            fieldItem.map(ele => {
+                fileList.push({
+                    fieldName: ele.fieldname,
+                    originalName: ele.originalname
+                })
+            })
+        }
         if(params.type === "1"){
             //修改
+            var sql = "select * from cloud_music_select where id = ?";
+            db.base(sql, [params.id], resultFileName => {
+                var imgName = JSON.parse(JSON.stringify(resultFileName))[0].postSrc;
+                var videoName = JSON.parse(JSON.stringify(resultFileName))[0].videoName;
+                if(params.postSrc ==="" && params.videoName === ""){
+                    //没有文件上传
+                    db.updateData(
+                        "cloud_music_select",
+                        ["title", "text", "authorId"],
+                        [params.title, params.text, params.authorId, params.id],
+                        err => {
+                            //先清空存储上传的文件名的数组
+                            fileNameList = [];
+                            if(err.effectedRows !== 0){
+                                res.json({
+                                    status: 200,
+                                    errMsg: "",
+                                    data: {}
+                                })
+                            }else{
+                                res.json({
+                                    status: 500,
+                                    errMsg: "修改失败",
+                                    data: {}
+                                })
+                            }
+                        }
+                    )
+                }else if(params.postSrc !== "" && params.videoName === ""){
+                    //有图片，没视频
+                    fs.unlink(`public/img/cloudSelect/${imgName}`, err => {
+                        if(err){
+                            console.log(err);
+                        }else{
+                            db.updateData(
+                                "cloud_music_select",
+                                ["title", "text", "authorId", "postSrc"],
+                                [params.title, params.text, params.authorId, fileNameList[0], params.id],
+                                err => {
+                                    //先清空存储上传的文件名的数组
+                                    fileNameList = [];
+                                    if(err.effectedRows !== 0){
+                                        res.json({
+                                            status: 200,
+                                            errMsg: "",
+                                            data: {}
+                                        })
+                                    }else{
+                                        res.json({
+                                            status: 500,
+                                            errMsg: "修改失败",
+                                            data: {}
+                                        })
+                                    }
+                                }
+                            )
+                        }
+                    })
+                }else if(params.postSrc === "" && params.videoName !== ""){
+                    //没图片，有视频
+                    fs.unlink(`public/img/cloudSelect/${videoName}`, err => {
+                        if(err){
+                            console.log(err);
+                        }else{
+                            db.updateData(
+                                "cloud_music_select",
+                                ["title", "text", "authorId", "videoName", "preVideoName"],
+                                [params.title, params.text, params.authorId, fileNameList[0], fileList[0].originalName, params.id],
+                                err => {
+                                    //先清空存储上传的文件名的数组
+                                    fileNameList = [];
+                                    if(err.effectedRows !== 0){
+                                        res.json({
+                                            status: 200,
+                                            errMsg: "",
+                                            data: {}
+                                        })
+                                    }else{
+                                        res.json({
+                                            status: 500,
+                                            errMsg: "修改失败",
+                                            data: {}
+                                        })
+                                    }
+                                }
+                            )
+                        }
+                    })
+                }else{
+                    //有图片，有视频
+                    fs.unlink(`public/img/cloudSelect/${imgName}`, errImg => {
+                        if(errImg){
+                            console.log(errImg);
+                        }else{
+                            fs.unlink(`public/img/cloudSelect/${videoName}`, errVideo => {
+                                if(errVideo){
+                                    console.log(errVideo);
+                                }else{
+                                    db.updateData(
+                                        "cloud_music_select",
+                                        ["title", "text", "authorId", "postSrc", "videoName", "preVideoName"],
+                                        [params.title, params.text, params.authorId, fileNameList[0], fileNameList[1], fileList[1].originalName, params.id],
+                                        err => {
+                                            //先清空存储上传的文件名的数组
+                                            fileNameList = [];
+                                            if(err.effectedRows !== 0){
+                                                res.json({
+                                                    status: 200,
+                                                    errMsg: "",
+                                                    data: {}
+                                                })
+                                            }else{
+                                                res.json({
+                                                    status: 500,
+                                                    errMsg: "修改失败",
+                                                    data: {}
+                                                })
+                                            }
+                                        }
+                                    )
+                                }
+                            })
+                        }
+                    })
+                }
+            })
         }else{
             //新增
-            var fileList = [];
-            for ( let item in req.files){
-                var fieldItem = req.files[item];
-                fieldItem.map(ele => {
-                    fileList.push({
-                        fieldName: ele.fieldname,
-                        originalName: ele.originalname
-                    })
-                })
-            }
             db.addData(
                 "cloud_music_select",
-                "id, title, text, postSrc, videoName, preVideoName, authorId, authorName, createTime",
-                "?, ?, ?, ?, ?, ?, ?, ?, ?",
-                [uuid.v1(), params.title, params.text, fileNameList[0], fileNameList[1], fileList[1].originalName, params.authorId, params.authorName, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")],
+                "id, title, text, postSrc, videoName, preVideoName, authorId, createTime",
+                "?, ?, ?, ?, ?, ?, ?, ?",
+                [uuid.v1(), params.title, params.text, fileNameList[0], fileNameList[1], fileList[1].originalName, params.authorId, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")],
                 err => {
                     //先清空存储上传的文件名的数组
                     fileNameList = [];

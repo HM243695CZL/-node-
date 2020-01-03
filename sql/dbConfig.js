@@ -1,9 +1,16 @@
 /**
  * 封装操作数据库的通用API
  */
+const fs = require("fs");
 const mysql = require("mysql");
+const moment = require("moment");
 //查询数据
 exports.base = (sql, data, callback) => {
+    fs.appendFile("./log/access-" + moment(new Date()).format("YYYY-MM-DD") + ".log", "--------------查询--时间："+ moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + "----------------\n" + sql + "\n", err => {
+        if(err){
+            console.log("写入查询失败：" + err);
+        }
+    });
     const connection = mysql.createConnection({
         host: "localhost",
         user: "root",
@@ -35,6 +42,13 @@ exports.addData = (tableName, params, flagBit, receiveParam, callback) => {
     });
     connection.connect();
     var sql = "insert into " + tableName + "(" + params + ")" + " values(" + flagBit + ")";
+    var addStr = "------------------新增--<<"+ tableName + ">>--时间：" + moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + "----------------\n" + sql + "\n";
+    addStr += receiveParam + "\n";
+    fs.appendFile("./log/access-" + moment(new Date()).format("YYYY-MM-DD") + ".log", addStr, err => {
+        if(err){
+            console.log("写入新增失败：" + err);
+        }
+    });
     connection.query( sql, receiveParam, (err, res) => {
         if(err) throw err;
         callback(res);
@@ -66,6 +80,13 @@ exports.updateData = (tableName, params, receiveParam, callback) => {
         }
     }
     var sql = "update " + tableName + " set " + paramStr + "where id = ?";
+    var editStr = "------------------修改--<<"+ tableName + ">>--时间：" + moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + "----------------\n" + sql + "\n";
+    editStr += receiveParam + "\n";
+    fs.appendFile("./log/access-" + moment(new Date()).format("YYYY-MM-DD") + ".log", editStr, err => {
+        if(err){
+            console.log("写入修改失败：" + err);
+        }
+    });
     connection.query(sql, receiveParam, (err, res) => {
         if(err) throw err;
         callback(res);
@@ -87,7 +108,15 @@ exports.delData = (tableName, id, callback) => {
         database: "cloud_music"
     });
     connection.connect();
-    connection.query("delete from " + tableName + " where id = ?", [id], (err, res) => {
+    var sql = "delete from " + tableName + " where id = ?";
+    var delStr = "------------------删除--<<"+ tableName + ">>--时间：" + moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + "----------------\n" + sql + "\n";
+    delStr += id + "\n";
+    fs.appendFile("./log/access-" + moment(new Date()).format("YYYY-MM-DD") + ".log", delStr, err => {
+        if(err){
+            console.log("写入删除失败：" + err);
+        }
+    });
+    connection.query(sql, [id], (err, res) => {
         if(err) throw err;
         callback(res);
         console.log("mysql连接成功...-del");

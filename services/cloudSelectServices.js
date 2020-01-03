@@ -6,7 +6,7 @@ exports.getCloudSelect = (req, res, next) => {
     var page = req.query.page || 1;
     var limit = req.query.limit || 10;
     var stateRow = (page - 1) * limit;
-    var sql = "select sel.id id, sel.title, sel.text, sel.preVideoName, sel.postSrc,sel.authorId, us.imgSrc as userHeadPic, us.username as selUsername from cloud_music_select sel, cloud_music_user us where sel.authorId = us.id limit " + stateRow + ", " + limit;
+    var sql = "select sel.id id, sel.title, sel.text, sel.preVideoName, sel.videoName, sel.postSrc,sel.authorId, sel.commendCount, sel.agreeCount, us.imgSrc as userHeadPic, us.username as selUsername from cloud_music_select sel, cloud_music_user us where sel.authorId = us.id limit " + stateRow + ", " + limit;
     var sqlCount = "select count(*) from cloud_music_select";
     var totalRow = 0;
     db.base(sqlCount, "", resultCount => {
@@ -15,6 +15,7 @@ exports.getCloudSelect = (req, res, next) => {
             var data = JSON.parse(JSON.stringify(result));
             for (var i = 0; i < data.length; i++){
                 data[i].postSrc = db.hostUrl + "cloudSelect/" + data[i].postSrc;
+                data[i].videoName = db.hostUrl + "cloudSelect/" + data[i].videoName;
                 data[i].userHeadPic = db.hostUrl + "user/" + data[i].userHeadPic;
                 data[i].createTime = moment(data[i].createTime).format("YYYY-MM-DD HH:mm:ss");
             }

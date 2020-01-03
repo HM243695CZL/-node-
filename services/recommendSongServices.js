@@ -9,11 +9,13 @@ exports.addRecommendSong = (req, res, next) => {
         var sql = "select * from cloud_music_recommend_song where id = ?";
         db.base(sql, [params.id], resultFileName => {
             var fileName = JSON.parse(JSON.stringify(resultFileName))[0].imgSrc;
-            fs.unlink(`public/img/recommendSong/${fileName}`, err => {
-                if(err){
-                    console.log(err);
-                }else{
-                    db.updateData("cloud_music_recommend_song", ["text", "imgSrc"], [params.text, global.uploadFileName, params.id], err => {
+            if(params.imgSrc === ""){
+                //没有文件上传，不修改文件
+                db.updateData(
+                    "cloud_music_recommend_song",
+                    ["text"],
+                    [params.text, params.id],
+                    err => {
                         if(err.effectedRows !== 0){
                             res.json({
                                 status: 200,
@@ -27,9 +29,36 @@ exports.addRecommendSong = (req, res, next) => {
                                 data: {}
                             })
                         }
-                    })
-                }
-            })
+                    }
+                )
+            }else{
+                fs.unlink(`public/img/recommendSong/${fileName}`, err => {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        db.updateData(
+                            "cloud_music_recommend_song",
+                            ["text", "imgSrc"],
+                            [params.text, global.uploadFileName, params.id],
+                                err => {
+                            if(err.effectedRows !== 0){
+                                res.json({
+                                    status: 200,
+                                    errMsg: "",
+                                    data: {}
+                                })
+                            }else{
+                                res.json({
+                                    status: 500,
+                                    errMsg: "修改失败",
+                                    data: {}
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+
         })
     }else{
         //新增
