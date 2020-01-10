@@ -4,7 +4,11 @@ exports.addMyRecommend = (req, res, next) => {
     var params = req.body;
     if(params.type === "1"){
         //修改
-        db.updateData("cloud_music_my_recommend", ["descName", "iconName"], [params.descName, params.iconName, params.id], err => {
+        db.updateData(
+            "cloud_music_my_recommend",
+            ["descName", "iconName"],
+            [params.descName, params.iconName, params.id],
+                err => {
             if(err.effectedRows !== 0){
                 res.json({
                     status: 200,
@@ -21,7 +25,11 @@ exports.addMyRecommend = (req, res, next) => {
         });
     }else{
         //新增
-        db.addData("cloud_music_my_recommend", "id, descName, iconName", "?, ?, ?", [uuid.v1(), params.descName, params.iconName], err => {
+        db.addData(
+            "cloud_music_my_recommend",
+            "id, descName, iconName",
+            [uuid.v1(), params.descName, params.iconName],
+                err => {
             if(err.affectedRows !== 0){
                 res.json({
                     status: 200,

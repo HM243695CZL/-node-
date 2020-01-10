@@ -5,7 +5,11 @@ exports.addSlidePicType = (req, res, next) => {
     var params = req.body;
     if(params.type === "1"){
         //修改
-        db.updateData("cloud_music_slide_pic_type", ["typeName", "typeValue"], [params.typeName, params.typeValue, params.id], err => {
+        db.updateData(
+            "cloud_music_slide_pic_type",
+            ["typeName", "typeValue"],
+            [params.typeName, params.typeValue, params.id],
+                err => {
             if(err.effectedRows !== 0){
                 res.json({
                     status: 200,
@@ -22,7 +26,11 @@ exports.addSlidePicType = (req, res, next) => {
         });
     }else{
         //新增
-        db.addData("cloud_music_slide_pic_type", "id, typeName, typeValue, createTime", "?, ?, ?, ?", [uuid.v1(), params.typeName, params.typeValue, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")], err => {
+        db.addData(
+            "cloud_music_slide_pic_type",
+            "id, typeName, typeValue, createTime",
+            [uuid.v1(), params.typeName, params.typeValue, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")],
+                err => {
             if(err.effectedRows !== 0){
                 res.json({
                     status: 200,

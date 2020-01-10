@@ -63,7 +63,6 @@ exports.addNewSong = (req, res, next) => {
         db.addData(
             "cloud_music_new_song",
             "id, text, imgSrc, createTime",
-            "?, ?, ?, ?",
             [uuid.v1(), params.text, global.uploadFileName, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")],
                 err => {
             if(err.effectedRows !== 0){
@@ -121,7 +120,10 @@ exports.delNewSong = (req, res, next) => {
                     data: {}
                 })
             }else{
-                db.delData("cloud_music_new_song", id, err => {
+                db.delData(
+                    "cloud_music_new_song",
+                    id,
+                        err => {
                     if(err.affectedRows !== 0){
                         res.json({
                             status: 200,

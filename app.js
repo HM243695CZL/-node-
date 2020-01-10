@@ -15,6 +15,8 @@ const slidePicType = require("./routes/slidePicType");
 const recommendSong = require("./routes/recommendSong");
 const newSong = require("./routes/newSong");
 const cloudSelect = require("./routes/cloudSelect");
+const cloudRecommend = require("./routes/cloudRecommend");
+const songLib = require("./routes/songLib");
 var verToken = require("./tokenConfig/tokenVerify");
 var expressJwt = require("express-jwt");
 var bodyParser = require("body-parser");
@@ -96,6 +98,10 @@ app.use(recommendSong);
 app.use(newSong);
 //发现下的云村精选
 app.use(cloudSelect);
+//发现下的云村推荐
+app.use(cloudRecommend);
+//曲库
+app.use(songLib);
 //暴露public文件夹
 app.use(express.static("public"));
 // //配置全局错误处理中间件

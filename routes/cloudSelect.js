@@ -190,7 +190,6 @@ router.post("/addCloudSelect", (req, res) => {
             db.addData(
                 "cloud_music_select",
                 "id, title, text, postSrc, videoName, preVideoName, authorId, createTime",
-                "?, ?, ?, ?, ?, ?, ?, ?",
                 [uuid.v1(), params.title, params.text, fileNameList[0], fileNameList[1], fileList[1].originalName, params.authorId, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")],
                 err => {
                     //先清空存储上传的文件名的数组

@@ -6,7 +6,6 @@ exports.addUser = (req, res, next) => {
     db.addData(
         "cloud_music_user",
         "id, username, password, imgSrc",
-        "?, ?, ?, ?",
         [uuid.v1(), params.username, params.password, global.uploadFileName],
             err => {
         if(err.affectedRows !== 0){

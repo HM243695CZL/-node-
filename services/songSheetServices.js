@@ -60,7 +60,11 @@ exports.addSongSheet = (req, res, next) => {
         })
     }else{
         //新增
-        db.addData("cloud_music_song_sheet", "id, songSheetName, songSheetImg, createTime", "?, ?, ?, ?", [uuid.v1(), params.songSheetName, global.uploadFileName, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")], err => {
+        db.addData(
+            "cloud_music_song_sheet",
+            "id, songSheetName, songSheetImg, createTime",
+            [uuid.v1(), params.songSheetName, global.uploadFileName, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")],
+                err => {
             if(err.effectedRows !== 0){
                 res.json({
                     status: 200,

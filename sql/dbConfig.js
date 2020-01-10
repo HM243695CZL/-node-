@@ -29,11 +29,10 @@ exports.base = (sql, data, callback) => {
  * 新增数据
  * @param tableName 表名
  * @param params 新增的参数
- * @param flagBit 占位符
  * @param receiveParam 接收到的值
  * @param callback
  */
-exports.addData = (tableName, params, flagBit, receiveParam, callback) => {
+exports.addData = (tableName, params, receiveParam, callback) => {
     const connection = mysql.createConnection({
         host: "localhost",
         user: "root",
@@ -41,7 +40,15 @@ exports.addData = (tableName, params, flagBit, receiveParam, callback) => {
         database: "cloud_music"
     });
     connection.connect();
-    var sql = "insert into " + tableName + "(" + params + ")" + " values(" + flagBit + ")";
+    var flagBitStr = "";
+    for (var i = 0; i < params.split(", ").length; i++){
+        if(i === params.split(", ").length - 1){
+            flagBitStr += "?";
+        }else{
+            flagBitStr += "?, ";
+        }
+    }
+    var sql = "insert into " + tableName + "(" + params + ")" + " values(" + flagBitStr + ")";
     var addStr = "------------------新增--<<"+ tableName + ">>--时间：" + moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + "----------------\n" + sql + "\n";
     addStr += receiveParam + "\n";
     fs.appendFile("./log/access-" + moment(new Date()).format("YYYY-MM-DD") + ".log", addStr, err => {
