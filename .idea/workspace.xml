@@ -4,25 +4,10 @@
     <list default="true" id="f36bef04-6944-47de-97a8-b93e3a068176" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/sqlFile/cloud_music_my_recommend.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/sqlFile/cloud_music_new_song.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/sqlFile/cloud_music_recommend_song.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/sqlFile/cloud_music_select.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/sqlFile/cloud_music_slide_pic.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/sqlFile/cloud_music_slide_pic_type.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/sqlFile/cloud_music_song_sheet.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/sqlFile/cloud_music_user.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/cloudSelect.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/cloudSelect.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/loginServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/loginServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/myRecommendServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/myRecommendServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/newSongServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/newSongServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/recommendSongServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/recommendSongServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/slidePicServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/slidePicServices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/songLib.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/songLib.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/cloudRecommendServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/cloudRecommendServices.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/slidePicTypeServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/slidePicTypeServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/songSheetServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/songSheetServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/userServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/userServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/dbConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/sql/dbConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/songLibServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/songLibServices.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,20 +19,61 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/readme.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="275">
-                <caret line="29" column="4" lean-forward="true" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.49603698">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/services/listenListenServices.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="350">
+                  <caret line="140" column="25" lean-forward="true" selection-start-line="140" selection-start-column="25" selection-end-line="140" selection-end-column="25" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/routes/listenListen.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="163">
+                  <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/routes/slidePic.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="875">
+                  <caret line="35" column="7" lean-forward="true" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/services/slidePicServices.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="188">
+                  <caret line="127" column="36" lean-forward="true" selection-start-line="127" selection-start-column="36" selection-end-line="127" selection-end-column="36" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/log/access-2020-01-13.log">
+              <provider selected="true" editor-type-id="LogFileEditorProvider">
+                <state relative-caret-position="280">
+                  <caret line="898" column="15" lean-forward="true" selection-start-line="898" selection-start-column="15" selection-end-line="898" selection-end-column="15" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -81,27 +107,32 @@
         <option value="$PROJECT_DIR$/routes/songSheet.js" />
         <option value="$PROJECT_DIR$/routes/slidePicType.js" />
         <option value="$PROJECT_DIR$/services/recommendSong.Services.js" />
-        <option value="$PROJECT_DIR$/routes/slidePic.js" />
         <option value="$PROJECT_DIR$/routes/newSong.js" />
         <option value="$PROJECT_DIR$/routes/user.js" />
         <option value="$PROJECT_DIR$/routes/recommendSong.js" />
         <option value="$PROJECT_DIR$/services/cloudSelectServices.js" />
-        <option value="$PROJECT_DIR$/routes/songLib.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/routes/cloudRecommend.js" />
         <option value="$PROJECT_DIR$/services/loginServices.js" />
         <option value="$PROJECT_DIR$/sql/dbConfig.js" />
-        <option value="$PROJECT_DIR$/services/cloudRecommendServices.js" />
         <option value="$PROJECT_DIR$/routes/cloudSelect.js" />
         <option value="$PROJECT_DIR$/services/myRecommendServices.js" />
         <option value="$PROJECT_DIR$/services/newSongServices.js" />
         <option value="$PROJECT_DIR$/services/recommendSongServices.js" />
-        <option value="$PROJECT_DIR$/services/slidePicServices.js" />
-        <option value="$PROJECT_DIR$/services/slidePicTypeServices.js" />
-        <option value="$PROJECT_DIR$/services/songLibServices.js" />
         <option value="$PROJECT_DIR$/services/songSheetServices.js" />
         <option value="$PROJECT_DIR$/services/userServices.js" />
         <option value="$PROJECT_DIR$/readme.md" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/routes/songLib.js" />
+        <option value="$PROJECT_DIR$/services/cloudRecommendServices.js" />
+        <option value="$PROJECT_DIR$/services/songLibServices.js" />
+        <option value="$PROJECT_DIR$/services/slidePicTypeServices.js" />
+        <option value="$PROJECT_DIR$/routes/listenListenType.js" />
+        <option value="$PROJECT_DIR$/services/listenListenTypeServices.js" />
+        <option value="$PROJECT_DIR$/routes/slidePic.js" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/routes/listenListen.js" />
+        <option value="$PROJECT_DIR$/services/slidePicServices.js" />
+        <option value="$PROJECT_DIR$/services/listenListenServices.js" />
       </list>
     </option>
   </component>
@@ -138,6 +169,13 @@
             <path>
               <item name="nodePlusExpressCreateWebServer" type="b2602c69:ProjectViewProjectNode" />
               <item name="nodePlusExpressCreateWebServer" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+              <item name="listenListen" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nodePlusExpressCreateWebServer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nodePlusExpressCreateWebServer" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -155,7 +193,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.16.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../cloud-music-admin-pro" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../smallProgram/cloudMusicPro" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -224,12 +262,13 @@
       <workItem from="1578404528814" duration="54000" />
       <workItem from="1578444020423" duration="5479000" />
       <workItem from="1578530312606" duration="24584000" />
-      <workItem from="1578616238594" duration="7516000" />
+      <workItem from="1578616238594" duration="19799000" />
+      <workItem from="1578875281008" duration="20299000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="374915000" />
+    <option name="totallyTimeSpent" value="407497000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -244,7 +283,7 @@
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2344782" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.10634082" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -256,7 +295,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32914925" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4993395" visible="true" weight="0.29469272" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4993395" visible="true" weight="0.26955307" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5006605" side_tool="true" weight="0.13389121" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -267,12 +306,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/img/1576216434044-cloudPic1.jpg" />
-    <entry file="file://$PROJECT_DIR$/public/test.md" />
-    <entry file="file://$PROJECT_DIR$/public/he.js" />
-    <entry file="file://$PROJECT_DIR$/public/img/20191213165141yasina.jpg" />
-    <entry file="file://$PROJECT_DIR$/public/img/20191213165755-changyongwangzhan.md" />
-    <entry file="file://$PROJECT_DIR$/public/img/20191213165949cloudPic.jpg.jpg" />
     <entry file="file://$PROJECT_DIR$/public/img/20191213170110zhuangzaidadaojian.jpg" />
     <entry file="file://$PROJECT_DIR$/public/img/slidePic/2019_12_19_14_00_25_刀剑神域.jpg" />
     <entry file="file://$PROJECT_DIR$/public/img/recommendSong/2019_12_19_17_14_11_兵长.jpg" />
@@ -280,13 +313,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
           <caret line="5" column="32" lean-forward="true" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/route.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="130" column="13" selection-start-line="130" selection-start-column="13" selection-end-line="130" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -345,24 +371,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="99" column="21" lean-forward="true" selection-start-line="99" selection-start-column="21" selection-end-line="99" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log/access-2020-01-09.log">
       <provider selected="true" editor-type-id="LogFileEditorProvider">
         <state relative-caret-position="148">
           <caret line="1185" column="30" selection-start-line="1185" selection-start-column="30" selection-end-line="1185" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log/access-2020-01-10.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider">
-        <state relative-caret-position="-3588">
-          <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -401,13 +413,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services/cloudSelectServices.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="22" column="28" lean-forward="true" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/services/loginServices.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -419,27 +424,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="4" column="39" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/cloudSelect.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="189" column="23" lean-forward="true" selection-start-line="189" selection-start-column="23" selection-end-line="189" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/cloudRecommend.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/cloudRecommendServices.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" column="31" lean-forward="true" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -485,48 +469,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/slidePic.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/slidePicServices.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="68" column="26" lean-forward="true" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/slidePicType.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="10" column="10" lean-forward="true" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/slidePicTypeServices.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="33" column="39" lean-forward="true" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/songLib.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="27" column="40" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/songLibServices.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="36" column="41" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/songSheet.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
@@ -555,13 +497,149 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="275">
-            <caret line="29" column="4" lean-forward="true" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
+          <first_editor relative-caret-position="250">
+            <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/cloudRecommend.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/access-2020-01-10.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="26175">
+          <caret line="1047" column="18" selection-start-line="1047" selection-start-column="18" selection-end-line="1047" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/cloudRecommendServices.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="55" column="35" lean-forward="true" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/songLibServices.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="3" column="29" lean-forward="true" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/songLib.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="50" column="26" lean-forward="true" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/cloudSelectServices.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="466">
+          <caret line="69" column="18" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/cloudSelect.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+          <folding>
+            <element signature="e#1695#8162#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/listenListenType.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/slidePicType.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/slidePicTypeServices.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1375">
+          <caret line="17" column="18" lean-forward="true" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/route.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="201" column="14" selection-start-line="201" selection-start-column="14" selection-end-line="201" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/listenListenTypeServices.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="27" column="9" lean-forward="true" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/slidePic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="875">
+          <caret line="35" column="7" lean-forward="true" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="114" column="17" lean-forward="true" selection-start-line="114" selection-start-column="17" selection-end-line="114" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/listenListen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/slidePicServices.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="127" column="36" lean-forward="true" selection-start-line="127" selection-start-column="36" selection-end-line="127" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/access-2020-01-13.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="280">
+          <caret line="898" column="15" lean-forward="true" selection-start-line="898" selection-start-column="15" selection-end-line="898" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/listenListenServices.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="140" column="25" lean-forward="true" selection-start-line="140" selection-start-column="25" selection-end-line="140" selection-end-column="25" />
         </state>
       </provider>
     </entry>

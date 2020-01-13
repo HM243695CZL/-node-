@@ -74,7 +74,10 @@ exports.getSlidePicType = (req, res, next) => {
 };
 exports.delSlidePicType = (req, res, next) => {
     var id = req.query.id;
-    db.delData("cloud_music_slide_pic_type", id, err => {
+    db.delData(
+        "cloud_music_slide_pic_type",
+        id,
+            err => {
         if(err.effactedRows !== 0){
             res.json({
                 status: 200,

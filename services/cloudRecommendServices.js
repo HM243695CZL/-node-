@@ -39,7 +39,7 @@ exports.getCloudRecommend = (req, res, next) => {
     var page = req.query.page || 1;
     var limit = req.query.limit || 10;
     var stateRow = (page - 1) * limit;
-    var sql = "select recommend.id, song.preSongName, recommend.recommendContent, us.username, recommend.createTime from cloud_music_song_lib song, cloud_music_recommend recommend, cloud_music_user us where song.id = recommend.songId and recommend.recommendUser = us.id limit " + stateRow + ", " + limit;
+    var sql = "select recommend.id, song.preSongName, recommend.recommendContent, song.agreeCount, song.commendCount, song.songImg, us.username, recommend.createTime from cloud_music_song_lib song, cloud_music_recommend recommend, cloud_music_user us where song.id = recommend.songId and recommend.recommendUser = us.id limit " + stateRow + ", " + limit;
     var sqlCount = "select count(*) from cloud_music_recommend";
     var totalRow = 0;
     db.base(sqlCount, "", resultCount => {
@@ -48,6 +48,7 @@ exports.getCloudRecommend = (req, res, next) => {
             var data = JSON.parse(JSON.stringify(result));
             for (var i = 0; i < data.length; i++){
                 data[i].createTime = moment(data[i].createTime).format("YYYY-MM-DD HH:mm:ss");
+                data[i].songImg = db.hostUrl + "songLib/" + data[i].songImg;
             }
             res.json({
                 status: 200,

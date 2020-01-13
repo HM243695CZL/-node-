@@ -16,6 +16,8 @@ const recommendSong = require("./routes/recommendSong");
 const newSong = require("./routes/newSong");
 const cloudSelect = require("./routes/cloudSelect");
 const cloudRecommend = require("./routes/cloudRecommend");
+const listenListen = require("./routes/listenListen");
+const listenListenType = require("./routes/listenListenType");
 const songLib = require("./routes/songLib");
 var verToken = require("./tokenConfig/tokenVerify");
 var expressJwt = require("express-jwt");
@@ -100,6 +102,10 @@ app.use(newSong);
 app.use(cloudSelect);
 //发现下的云村推荐
 app.use(cloudRecommend);
+//发现下的听听
+app.use(listenListen);
+//发现下的听听类型
+app.use(listenListenType);
 //曲库
 app.use(songLib);
 //暴露public文件夹

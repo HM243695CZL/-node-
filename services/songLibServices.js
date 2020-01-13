@@ -3,69 +3,6 @@ const uuid = require("node-uuid");
 const moment = require("moment");
 const path = require("path");
 const fs = require("fs");
-var isErr = "";
-exports.addSongLib = (req, res, next) => {
-    var params = req.body;
-    if(params.type === "1"){
-        //修改
-        db.updateData(
-            "cloud_music_song_lib",
-            ["remark"],
-            [params.remark, params.id],
-            err => {
-                if(err.effectedRows !== 0){
-                    res.json({
-                        status: 200,
-                        errMsg: "",
-                        data: {}
-                    })
-                }else{
-                    res.json({
-                        status: 500,
-                        errMsg: "修改失败",
-                        data: {}
-                    })
-                }
-            }
-        )
-    }else{
-        //新增
-        for (var i = 0; i < req.files.length; i ++){
-            db.addData(
-                "cloud_music_song_lib",
-                "id, songName, preSongName, remark, size, createTime",
-                [uuid.v1() + i, req.files[i].filename, req.files[i].originalname, params.remark, req.files[i].size, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")],
-                err => {
-                    if(err.effectedRows !== 0){
-                        isErr = "no-err";
-                    }else{
-                        isErr = "has-err";
-                    }
-                }
-            )
-        }
-        res.json({
-            status: 200,
-            errMsg: "",
-            data: {
-                msg: "新增成功，本次新增了" + req.files.length +"条"
-            }
-        })
-        // if(isErr !== "no-err"){
-        //     res.json({
-        //         status: 200,
-        //         errMsg: "",
-        //         data: {}
-        //     })
-        // }else{
-        //     res.json({
-        //         status: 500,
-        //         errMsg: "新增失败",
-        //         data: {}
-        //     })
-        // }
-    }
-};
 exports.getSongLib = (req, res, next) => {
     var page = req.query.page || 1;
     var limit = req.query.limit || 10;
@@ -82,6 +19,7 @@ exports.getSongLib = (req, res, next) => {
                 data[i].src = db.hostUrl + "songLib/" + data[i].songName;
                 data[i].createTime = moment(data[i].createTime).format("YYYY-MM-DD HH:mm:ss");
                 data[i].size = (data[i].size / 1024 / 1024).toFixed(2) + "M";
+                data[i].songImg = db.hostUrl + "songLib/" + data[i].songImg;
             }
             res.json({
                 status: 200,
