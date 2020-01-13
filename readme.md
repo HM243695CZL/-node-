@@ -26,6 +26,10 @@
     
     > 云村推荐 `cloud_music_recomend`
     
+    > 听听 `cloud_music_listen_listen`
+    
+    > 听听类型 `cloud_music_listen_listen_type`
+    
     > 曲库 `cloud_music_song_lib`
     
 ### 注：
