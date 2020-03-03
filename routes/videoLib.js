@@ -1,7 +1,7 @@
-//曲库
-const  express = require("express");
+//视频库
+const express = require("express");
 const router = express.Router();
-const songLibServices = require("../services/songLibServices");
+const videoLibServices = require("../services/videoLibServices");
 const db = require("../sql/dbConfig");
 const uuid = require("node-uuid");
 const fs = require("fs");
@@ -20,13 +20,13 @@ var createFileDirectory = function(path) {
 const multer = require("multer");
 //保存上传的图片
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function(req, file, cb){
         //先创建路径在保存
-        createFileDirectory("public/img/songLib");
-        //指定文件保存路径
-        cb(null, 'public/img/songLib');
+        createFileDirectory("public/img/videoLib");
+        //指定文件的保存路径
+        cb(null, 'public/img/videoLib');
     },
-    filename: function(req, file, cb) {
+    filename: function(req, file, cb){
         //设置全局变量，用于保存上传的文件的修改名称
         global.uploadFileName = moment(new Date()).format("YYYY_MM_DD_HH_mm_ss_") + file.originalname;
         fileNameList.push(global.uploadFileName);
@@ -34,18 +34,18 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({
-    storage: storage
+    storage
 });
 let multipleFields = upload.fields([
     {
-        name: "songName"
+        name: "videoName"
     },
     {
-        name: "songImg"
+        name: "videoImg"
     }
 ]);
-//新增歌曲
-router.post("/addSongLib", (req, res) => {
+//新增视频
+router.post("/addVideoLib", (req, res) => {
     multipleFields(req, res, err => {
         var params = req.body;
         var fileList = [];
@@ -61,7 +61,7 @@ router.post("/addSongLib", (req, res) => {
         if(params.type === "1"){
             //修改
             db.updateData(
-                "cloud_music_song_lib",
+                "cloud_music_video_lib",
                 ["remark"],
                 [params.remark, params.id],
                 err => {
@@ -82,11 +82,11 @@ router.post("/addSongLib", (req, res) => {
             )
         }else{
             //新增
-            for (var i = 0; i < fileList.length - 1; i ++){
+            for (var i = 0; i <fileList.length  - 1; i ++){
                 db.addData(
-                    "cloud_music_song_lib",
-                    "id, songName, preSongName, songImg, remark, size, createTime",
-                    [uuid.v1() + i, fileNameList[i], fileList[i].originalName, fileNameList[fileNameList.length - 1], params.remark, req.files["songName"][i].size, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")],
+                    "cloud_music_video_lib",
+                    "id, videoName, preVideoName, videoImg, remark, size, createTime",
+                    [uuid.v1() + i, fileNameList[i], fileList[i].originalName, fileNameList[fileNameList.length - 1], params.remark, req.files["videoName"][i].size, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")],
                     err => {
                         if(err.effectedRows !== 0){
                             isErr = "no-err";
@@ -106,10 +106,10 @@ router.post("/addSongLib", (req, res) => {
         }
     })
 });
-//查询歌曲
-router.get("/getSongLib", songLibServices.getSongLib);
-//删除歌曲
-router.get("/delSongLib", songLibServices.delSongLib);
-//下载歌曲
-router.get("/downloadSongLib", songLibServices.downloadSongLib);
+//查询视频
+router.get("/getVideoLib", videoLibServices.getVideoLib);
+//删除视频
+router.get("/delVideoLib", videoLibServices.delVideoLib);
+//下载视频
+router.get("/downloadVideoLib", videoLibServices.downloadVideoLib);
 module.exports = router;

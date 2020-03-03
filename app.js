@@ -18,7 +18,9 @@ const cloudSelect = require("./routes/cloudSelect");
 const cloudRecommend = require("./routes/cloudRecommend");
 const listenListen = require("./routes/listenListen");
 const listenListenType = require("./routes/listenListenType");
+const square = require("./routes/square_c");
 const songLib = require("./routes/songLib");
+const videoLib = require("./routes/videoLib");
 var verToken = require("./tokenConfig/tokenVerify");
 var expressJwt = require("express-jwt");
 var bodyParser = require("body-parser");
@@ -106,8 +108,12 @@ app.use(cloudRecommend);
 app.use(listenListen);
 //发现下的听听类型
 app.use(listenListenType);
+//云村下的广场
+app.use(square);
 //曲库
 app.use(songLib);
+//视频库
+app.use(videoLib);
 //暴露public文件夹
 app.use(express.static("public"));
 // //配置全局错误处理中间件

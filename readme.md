@@ -32,6 +32,8 @@
     
     > 曲库 `cloud_music_song_lib`
     
+    >视频库 `cloud_music_video_lib`
+    
 ### 注：
   - 需要在public目录下再创建`img`文件夹用于上传文件时的保存路径
   - 和public目录同级再创建一个`log`文件夹，用于保存日志
