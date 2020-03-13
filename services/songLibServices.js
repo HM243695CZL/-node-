@@ -9,35 +9,32 @@ exports.getSongLib = (req, res, next) => {
     var songName = req.query.songName || "";
     var stateRow = (page - 1) * limit;
     var sql = "select * from cloud_music_song_lib where preSongName like '%" + songName + "%' limit " + stateRow + ", " + limit;
-    var sqlCount = "select count(*) from cloud_music_song_lib where preSongName like '%" + songName + "%'";
+    var sqlCount = "select count(*) as count from cloud_music_song_lib where preSongName like '%" + songName + "%'";
     var totalRow = 0;
-    db.base(sqlCount, "", resultCount => {
-        totalRow = JSON.parse(JSON.stringify(resultCount[0]))["count(*)"];
-        db.base(sql, "", result => {
-            var data = JSON.parse(JSON.stringify(result));
-            for (var i = 0; i < data.length; i++){
-                data[i].src = db.hostUrl + "songLib/" + data[i].songName;
-                data[i].createTime = moment(data[i].createTime).format("YYYY-MM-DD HH:mm:ss");
-                data[i].size = (data[i].size / 1024 / 1024).toFixed(2) + "M";
-                data[i].songImg = db.hostUrl + "songLib/" + data[i].songImg;
+    db.base(sqlCount, "").then( resultCount => totalRow = resultCount.data[0].count).then(db.base(sql, "").then( result => {
+        var data = result.data;
+        for (var i = 0; i < data.length; i++){
+            data[i].src = db.hostUrl + "songLib/" + data[i].songName;
+            data[i].createTime = moment(data[i].createTime).format("YYYY-MM-DD HH:mm:ss");
+            data[i].size = (data[i].size / 1024 / 1024).toFixed(2) + "M";
+            data[i].songImg = db.hostUrl + "songLib/" + data[i].songImg;
+        }
+        res.json({
+            status: 200,
+            errMsg: "",
+            totalRow: totalRow,
+            data: {
+                result: data
             }
-            res.json({
-                status: 200,
-                errMsg: "",
-                totalRow: totalRow,
-                data: {
-                    result: data
-                }
-            })
         })
-    })
+    }))
 };
 exports.delSongLib = (req, res, next) => {
     var id = req.query.id;
     var sql = "select * from cloud_music_song_lib where id = ?";
-    db.base(sql, [id], resultFileName => {
-        var fileName = JSON.parse(JSON.stringify(resultFileName))[0].songName;
-        var imgName = JSON.parse(JSON.stringify(resultFileName))[0].songImg;
+    db.base(sql, [id]).then( resultFileName => {
+        var fileName = resultFileName.data[0].songName;
+        var imgName = resultFileName.data[0].songImg;
         fs.unlink(`public/img/songLib/${fileName}`, err => {
             if(err){
                 res.json({
@@ -56,23 +53,21 @@ exports.delSongLib = (req, res, next) => {
                     }else{
                         db.delData(
                             "cloud_music_song_lib",
-                            id,
-                            err => {
-                                if(err.affectedRows !== 0){
-                                    res.json({
-                                        status: 200,
-                                        errMsg: "",
-                                        data: {}
-                                    })
-                                }else{
-                                    res.json({
-                                        status: 500,
-                                        errMsg: "删除失败，不能从数据库中删除",
-                                        data: {}
-                                    })
-                                }
+                            id).then( result => {
+                            if(result.data.affectedRows !== 0){
+                                res.json({
+                                    status: 200,
+                                    errMsg: "",
+                                    data: {}
+                                })
+                            }else{
+                                res.json({
+                                    status: 500,
+                                    errMsg: "删除失败，不能从数据库中删除",
+                                    data: {}
+                                })
                             }
-                        )
+                        })
                     }
                 });
             }
@@ -82,10 +77,10 @@ exports.delSongLib = (req, res, next) => {
 exports.downloadSongLib = (req, res, next) => {
     var id = req.query.id;
     var sql = "select * from cloud_music_song_lib where id = ?";
-    db.base(sql, [id], resultFileName => {
-        var fileName = JSON.parse(JSON.stringify(resultFileName))[0].songName;
+    db.base(sql, [id]).then( resultFileName => {
+        var fileName = resultFileName.data[0].songName;
         var filePath = path.join(__dirname, "../public/img/songLib/" + fileName);
-        var name = JSON.parse(JSON.stringify(resultFileName))[0].preSongName;
+        var name = resultFileName.data[0].preSongName;
         res.download(filePath, name);
     });
 };

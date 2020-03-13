@@ -1,9 +1,12 @@
 node_modules
 log/*
 public/img/cloudSelect/*
+public/img/listenListen/*
 public/img/newSong/*
 public/img/recommendSong/*
 public/img/slidePic/*
 public/img/songLib/*
 public/img/songSheet/*
+public/img/square/*
 public/img/user/*
+public/img/videoLib/*

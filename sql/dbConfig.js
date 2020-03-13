@@ -4,42 +4,40 @@
 const fs = require("fs");
 const mysql = require("mysql");
 const moment = require("moment");
+const databaseInfo = {
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "cloud_music"
+};
 //查询数据
-exports.base = (sql, data, callback) => {
+exports.base = (sql, data) => {
     fs.appendFile("./log/access-" + moment(new Date()).format("YYYY-MM-DD") + ".log", "--------------查询--时间："+ moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + "----------------\n" + sql + "\n", err => {
         if(err){
             console.log("写入查询失败：" + err);
         }
     });
-    const connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "root",
-        database: "cloud_music"
+    const connection = mysql.createConnection(databaseInfo);
+    return new Promise(function(resolve, reject){
+        connection.connect();
+        connection.query(sql, data, (err, res) => {
+            if(err) throw err;
+            resolve({
+                err,
+                data: JSON.parse(JSON.stringify(res))
+            });
+            console.log("mysql连接成功...");
+        });
+        connection.end();
     });
-    connection.connect();
-    connection.query(sql, data, (err, res) => {
-        if(err) throw err;
-        callback(res);
-        console.log("mysql连接成功...");
-    });
-    connection.end();
 };
 /**
  * 新增数据
  * @param tableName 表名
  * @param params 新增的参数
  * @param receiveParam 接收到的值
- * @param callback
  */
-exports.addData = (tableName, params, receiveParam, callback) => {
-    const connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "root",
-        database: "cloud_music"
-    });
-    connection.connect();
+exports.addData = (tableName, params, receiveParam) => {
     var flagBitStr = "";
     for (var i = 0; i < params.split(", ").length; i++){
         if(i === params.split(", ").length - 1){
@@ -56,28 +54,27 @@ exports.addData = (tableName, params, receiveParam, callback) => {
             console.log("写入新增失败：" + err);
         }
     });
-    connection.query( sql, receiveParam, (err, res) => {
-        if(err) throw err;
-        callback(res);
-        console.log("mysql连接成功...-add");
+    const connection = mysql.createConnection(databaseInfo);
+    return new Promise(function(resolve, reject){
+        connection.connect();
+        connection.query( sql, receiveParam, (err, res) => {
+            if(err) throw err;
+            resolve({
+                err,
+                data: JSON.parse(JSON.stringify(res))
+            });
+            console.log("mysql连接成功...-add");
+        });
+        connection.end();
     });
-    connection.end();
 };
 /**
  * 修改数据
  * @param tableName 表名
  * @param params 修改的参数
  * @param receiveParam 接收的参数值
- * @param callback
  */
-exports.updateData = (tableName, params, receiveParam, callback) => {
-    const connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "root",
-        database: "cloud_music"
-    });
-    connection.connect();
+exports.updateData = (tableName, params, receiveParam) => {
     var paramStr = "";
     for (var i = 0; i < params.length; i++){
         if(i === params.length - 1){
@@ -94,27 +91,26 @@ exports.updateData = (tableName, params, receiveParam, callback) => {
             console.log("写入修改失败：" + err);
         }
     });
-    connection.query(sql, receiveParam, (err, res) => {
-        if(err) throw err;
-        callback(res);
-        console.log("mysql连接成功...-update");
+    const connection = mysql.createConnection(databaseInfo);
+    connection.connect();
+    return new Promise(function(resolve, reject){
+        connection.query(sql, receiveParam, (err, res) => {
+            if(err) throw err;
+            resolve({
+                err,
+                data: JSON.parse(JSON.stringify(res))
+            });
+            console.log("mysql连接成功...-update");
+        });
+        connection.end();
     });
-    connection.end();
 };
 /**
  * 删除数据
  * @param tableName 表名
  * @param id 需要删除的id
- * @param callback
  */
-exports.delData = (tableName, id, callback) => {
-    const connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "root",
-        database: "cloud_music"
-    });
-    connection.connect();
+exports.delData = (tableName, id) => {
     var sql = "delete from " + tableName + " where id = ?";
     var delStr = "------------------删除--<<"+ tableName + ">>--时间：" + moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + "----------------\n" + sql + "\n";
     delStr += id + "\n";
@@ -123,11 +119,18 @@ exports.delData = (tableName, id, callback) => {
             console.log("写入删除失败：" + err);
         }
     });
-    connection.query(sql, [id], (err, res) => {
-        if(err) throw err;
-        callback(res);
-        console.log("mysql连接成功...-del");
+    const connection = mysql.createConnection(databaseInfo);
+    return new Promise(function(resolve,reject){
+        connection.connect();
+        connection.query(sql, [id], (err, res) => {
+            if(err) throw err;
+            resolve({
+                err,
+                data: JSON.parse(JSON.stringify(res))
+            });
+            console.log("mysql连接成功...-del");
+        });
+        connection.end();
     });
-    connection.end();
 };
 exports.hostUrl = "http://localhost:3002/img/";

@@ -7,9 +7,8 @@ exports.addMyRecommend = (req, res, next) => {
         db.updateData(
             "cloud_music_my_recommend",
             ["descName", "iconName"],
-            [params.descName, params.iconName, params.id],
-                err => {
-            if(err.effectedRows !== 0){
+            [params.descName, params.iconName, params.id]).then( result => {
+            if(result.data.effectedRows !== 0){
                 res.json({
                     status: 200,
                     errMsg: "",
@@ -22,15 +21,14 @@ exports.addMyRecommend = (req, res, next) => {
                     data: {}
                 })
             }
-        });
+        })
     }else{
         //新增
         db.addData(
             "cloud_music_my_recommend",
             "id, descName, iconName",
-            [uuid.v1(), params.descName, params.iconName],
-                err => {
-            if(err.affectedRows !== 0){
+            [uuid.v1(), params.descName, params.iconName]).then( result => {
+            if(result.data.effectedRows !== 0){
                 res.json({
                     status: 200,
                     errMsg: "",
@@ -43,7 +41,7 @@ exports.addMyRecommend = (req, res, next) => {
                     data: {}
                 })
             }
-        });
+        })
     }
 };
 exports.getMyRecommend = (req, res, next) => {
@@ -51,26 +49,23 @@ exports.getMyRecommend = (req, res, next) => {
     var limit = req.query.limit || 10;
     var stateRow = (page - 1) * limit;
     var sql = "select * from cloud_music_my_recommend limit " + stateRow + ", " + limit;
-    var sqlCount = "select count(*) from cloud_music_my_recommend";
+    var sqlCount = "select count(*) as count from cloud_music_my_recommend";
     var totalRow = 0;
-    db.base(sqlCount, "", resultCount => {
-        totalRow = JSON.parse(JSON.stringify(resultCount[0]))["count(*)"];
-        db.base(sql, "", result => {
-            res.json({
-                status: 200,
-                errMsg: "",
-                totalRow: totalRow,
-                data: {
-                    result: result
-                }
-            })
+    db.base(sqlCount, "").then( resultCount => totalRow = resultCount.data[0].count).then(db.base(sql, "").then(result => {
+        res.json({
+            status: 200,
+            errMsg: "",
+            totalRow: totalRow,
+            data: {
+                result: result.data
+            }
         })
-    });
+    }))
 };
 exports.delMyRecommend = (req, res, next) => {
     var id = req.query.id;
-    db.delData("cloud_music_my_recommend", id, err => {
-        if(err.affectedRows !== 0){
+    db.delData("cloud_music_my_recommend", id).then( result => {
+        if(result.data.affectedRows !== 0){
             res.json({
                 status: 200,
                 errMsg: "",
@@ -83,5 +78,5 @@ exports.delMyRecommend = (req, res, next) => {
                 data: {}
             })
         }
-    });
+    })
 };

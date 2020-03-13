@@ -60,33 +60,31 @@ router.post("/addCloudSelect", (req, res) => {
         if(params.type === "1"){
             //修改
             var sql = "select * from cloud_music_select where id = ?";
-            db.base(sql, [params.id], resultFileName => {
-                var imgName = JSON.parse(JSON.stringify(resultFileName))[0].postSrc;
-                var videoName = JSON.parse(JSON.stringify(resultFileName))[0].videoName;
+            db.base(sql, [params.id]).then( resultFileName => {
+                var imgName = resultFileName.data[0].postSrc;
+                var videoName = resultFileName.data[0].videoName;
                 if(params.postSrc ==="" && params.videoName === ""){
                     //没有文件上传
                     db.updateData(
                         "cloud_music_select",
                         ["title", "text", "authorId"],
-                        [params.title, params.text, params.authorId, params.id],
-                        err => {
-                            //先清空存储上传的文件名的数组
-                            fileNameList = [];
-                            if(err.effectedRows !== 0){
-                                res.json({
-                                    status: 200,
-                                    errMsg: "",
-                                    data: {}
-                                })
-                            }else{
-                                res.json({
-                                    status: 500,
-                                    errMsg: "修改失败",
-                                    data: {}
-                                })
-                            }
+                        [params.title, params.text, params.authorId, params.id]).then( result => {
+                        //先清空存储上传的文件名的数组
+                        fileNameList = [];
+                        if(result.data.effectedRows !== 0){
+                            res.json({
+                                status: 200,
+                                errMsg: "",
+                                data: {}
+                            })
+                        }else{
+                            res.json({
+                                status: 500,
+                                errMsg: "修改失败",
+                                data: {}
+                            })
                         }
-                    )
+                    })
                 }else if(params.postSrc !== "" && params.videoName === ""){
                     //有图片，没视频
                     fs.unlink(`public/img/cloudSelect/${imgName}`, err => {
@@ -96,25 +94,23 @@ router.post("/addCloudSelect", (req, res) => {
                             db.updateData(
                                 "cloud_music_select",
                                 ["title", "text", "authorId", "postSrc"],
-                                [params.title, params.text, params.authorId, fileNameList[0], params.id],
-                                err => {
-                                    //先清空存储上传的文件名的数组
-                                    fileNameList = [];
-                                    if(err.effectedRows !== 0){
-                                        res.json({
-                                            status: 200,
-                                            errMsg: "",
-                                            data: {}
-                                        })
-                                    }else{
-                                        res.json({
-                                            status: 500,
-                                            errMsg: "修改失败",
-                                            data: {}
-                                        })
-                                    }
+                                [params.title, params.text, params.authorId, fileNameList[0], params.id]).then( result => {
+                                //先清空存储上传的文件名的数组
+                                fileNameList = [];
+                                if(result.data.effectedRows !== 0){
+                                    res.json({
+                                        status: 200,
+                                        errMsg: "",
+                                        data: {}
+                                    })
+                                }else{
+                                    res.json({
+                                        status: 500,
+                                        errMsg: "修改失败",
+                                        data: {}
+                                    })
                                 }
-                            )
+                            })
                         }
                     })
                 }else if(params.postSrc === "" && params.videoName !== ""){
@@ -126,25 +122,23 @@ router.post("/addCloudSelect", (req, res) => {
                             db.updateData(
                                 "cloud_music_select",
                                 ["title", "text", "authorId", "videoName", "preVideoName"],
-                                [params.title, params.text, params.authorId, fileNameList[0], fileList[0].originalName, params.id],
-                                err => {
-                                    //先清空存储上传的文件名的数组
-                                    fileNameList = [];
-                                    if(err.effectedRows !== 0){
-                                        res.json({
-                                            status: 200,
-                                            errMsg: "",
-                                            data: {}
-                                        })
-                                    }else{
-                                        res.json({
-                                            status: 500,
-                                            errMsg: "修改失败",
-                                            data: {}
-                                        })
-                                    }
+                                [params.title, params.text, params.authorId, fileNameList[0], fileList[0].originalName, params.id]).then( result => {
+                                //先清空存储上传的文件名的数组
+                                fileNameList = [];
+                                if(result.data.effectedRows !== 0){
+                                    res.json({
+                                        status: 200,
+                                        errMsg: "",
+                                        data: {}
+                                    })
+                                }else{
+                                    res.json({
+                                        status: 500,
+                                        errMsg: "修改失败",
+                                        data: {}
+                                    })
                                 }
-                            )
+                            })
                         }
                     })
                 }else{
@@ -160,25 +154,23 @@ router.post("/addCloudSelect", (req, res) => {
                                     db.updateData(
                                         "cloud_music_select",
                                         ["title", "text", "authorId", "postSrc", "videoName", "preVideoName"],
-                                        [params.title, params.text, params.authorId, fileNameList[0], fileNameList[1], fileList[1].originalName, params.id],
-                                        err => {
-                                            //先清空存储上传的文件名的数组
-                                            fileNameList = [];
-                                            if(err.effectedRows !== 0){
-                                                res.json({
-                                                    status: 200,
-                                                    errMsg: "",
-                                                    data: {}
-                                                })
-                                            }else{
-                                                res.json({
-                                                    status: 500,
-                                                    errMsg: "修改失败",
-                                                    data: {}
-                                                })
-                                            }
+                                        [params.title, params.text, params.authorId, fileNameList[0], fileNameList[1], fileList[1].originalName, params.id]).then( result => {
+                                        //先清空存储上传的文件名的数组
+                                        fileNameList = [];
+                                        if(result.data.effectedRows !== 0){
+                                            res.json({
+                                                status: 200,
+                                                errMsg: "",
+                                                data: {}
+                                            })
+                                        }else{
+                                            res.json({
+                                                status: 500,
+                                                errMsg: "修改失败",
+                                                data: {}
+                                            })
                                         }
-                                    )
+                                    })
                                 }
                             })
                         }
@@ -190,24 +182,23 @@ router.post("/addCloudSelect", (req, res) => {
             db.addData(
                 "cloud_music_select",
                 "id, title, text, postSrc, videoName, preVideoName, authorId, createTime",
-                [uuid.v1(), params.title, params.text, fileNameList[0], fileNameList[1], fileList[1].originalName, params.authorId, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")],
-                err => {
-                    //先清空存储上传的文件名的数组
-                    fileNameList = [];
-                    if(err.effectedRows !== 0){
-                        res.json({
-                            status: 200,
-                            errMsg: "",
-                            data: {}
-                        })
-                    }else{
-                        res.json({
-                            status: 500,
-                            errMsg: "新增失败",
-                            data: {}
-                        })
-                    }
-                });
+                [uuid.v1(), params.title, params.text, fileNameList[0], fileNameList[1], fileList[1].originalName, params.authorId, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")]).then( result => {
+                //先清空存储上传的文件名的数组
+                fileNameList = [];
+                if(result.data.effectedRows !== 0){
+                    res.json({
+                        status: 200,
+                        errMsg: "",
+                        data: {}
+                    })
+                }else{
+                    res.json({
+                        status: 500,
+                        errMsg: "新增失败",
+                        data: {}
+                    })
+                }
+            })
         }
     });
 });

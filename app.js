@@ -5,7 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const FileStreamRotator  = require("file-stream-rotator");
 const port = 3002;
-const indexRouter = require("./routes/router");
+const indexRouter = require("./routes/indexRouter");
 const userRouter = require("./routes/user");
 const loginRouter = require("./routes/login");
 const myRecommendRouter = require("./routes/myRecommend");
@@ -21,9 +21,13 @@ const listenListenType = require("./routes/listenListenType");
 const square = require("./routes/square_c");
 const songLib = require("./routes/songLib");
 const videoLib = require("./routes/videoLib");
+const configPath = require("./routes/configPath");
 var verToken = require("./tokenConfig/tokenVerify");
 var expressJwt = require("express-jwt");
 var bodyParser = require("body-parser");
+const db = require("./sql/dbConfig");
+const uuid = require("node-uuid");
+const moment = require("moment");
 /**
  * ******************************
  * 生成日志 start
@@ -56,6 +60,23 @@ app.all("*", (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
     res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    if(req.originalUrl.includes("get")){
+        var path = req.originalUrl.split("?")[0].slice(1);
+        var querySql = "select * from cloud_music_config_path where path = ?";
+        db.base(querySql, [path]).then( result => {
+            if(result.data.length > 0){
+                db.addData(
+                    "cloud_music_visit_info",
+                    "id, path, visitTime",
+                    [uuid.v1(), path, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")],
+                    err => {
+
+                    }
+                )
+            }
+        })
+
+    }
     next();
 });
 // // 验证token是否过期并规定哪些路由不用验证
@@ -81,7 +102,6 @@ app.all("*", (req, res, next) => {
 app.use(bodyParser.urlencoded({extended: false}));
 //js向后台post一些文件信息时，会出现request entity too large，express框架的问题，默认的很小，可以通过如下方式设置为10mb
 app.use(bodyParser.json({limit: "10mb"}));
-
 //主路由
 app.use(indexRouter);
 //用户路由
@@ -114,6 +134,8 @@ app.use(square);
 app.use(songLib);
 //视频库
 app.use(videoLib);
+//配置路径
+app.use(configPath);
 //暴露public文件夹
 app.use(express.static("public"));
 // //配置全局错误处理中间件

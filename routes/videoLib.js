@@ -63,38 +63,35 @@ router.post("/addVideoLib", (req, res) => {
             db.updateData(
                 "cloud_music_video_lib",
                 ["remark"],
-                [params.remark, params.id],
-                err => {
-                    if(err.effectedRows !== 0){
-                        res.json({
-                            status: 200,
-                            errMsg: "",
-                            data: {}
-                        })
-                    }else{
-                        res.json({
-                            status: 500,
-                            errMsg: "修改失败",
-                            data: {}
-                        })
-                    }
+                [params.remark, params.id]).then( result => {
+                if(result.data.effectedRows !== 0){
+                    res.json({
+                        status: 200,
+                        errMsg: "",
+                        data: {}
+                    })
+                }else{
+                    res.json({
+                        status: 500,
+                        errMsg: "修改失败",
+                        data: {}
+                    })
                 }
-            )
+            })
         }else{
             //新增
             for (var i = 0; i <fileList.length  - 1; i ++){
                 db.addData(
                     "cloud_music_video_lib",
                     "id, videoName, preVideoName, videoImg, remark, size, createTime",
-                    [uuid.v1() + i, fileNameList[i], fileList[i].originalName, fileNameList[fileNameList.length - 1], params.remark, req.files["videoName"][i].size, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")],
-                    err => {
-                        if(err.effectedRows !== 0){
-                            isErr = "no-err";
-                        }else{
-                            isErr = "has-err";
-                        }
+                    [uuid.v1() + i, fileNameList[i], fileList[i].originalName, fileNameList[fileNameList.length - 1], params.remark, req.files["videoName"][i].size, moment(new Date()).format("YYYY-MM-DD HH:mm:ss")]
+                ).then( result => {
+                    if(result.data.effectedRows !== 0){
+                        isErr = "no-err";
+                    }else{
+                        isErr = "has-err";
                     }
-                )
+                })
             }
             res.json({
                 status: 200,
