@@ -10,6 +10,7 @@ const databaseInfo = {
     password: "root",
     database: "cloud_music"
 };
+const prefixTable = "cloud_music_";
 //查询数据
 exports.base = (sql, data) => {
     fs.appendFile("./log/access-" + moment(new Date()).format("YYYY-MM-DD") + ".log", "--------------查询--时间："+ moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + "----------------\n" + sql + "\n", err => {
@@ -27,6 +28,27 @@ exports.base = (sql, data) => {
                 data: JSON.parse(JSON.stringify(res))
             });
             console.log("mysql连接成功...");
+        });
+        connection.end();
+    });
+};
+/**
+ * 获取数量
+ * @param aliasName 别名
+ * @param tableName 表名
+ */
+exports.count = (aliasName, tableName) => {
+    var sql = "select count(*) as " + aliasName + " from " + prefixTable + tableName;
+    const connection = mysql.createConnection(databaseInfo);
+    return new Promise(function(resolve, reject){
+        connection.connect();
+        connection.query( sql,"", (err, res) => {
+            if(err) throw err;
+            resolve({
+                err,
+                data: JSON.parse(JSON.stringify(res))
+            });
+            console.log("mysql连接成功...-查询数量");
         });
         connection.end();
     });

@@ -3,7 +3,7 @@ var jwt = require("jsonwebtoken");
 var signKey = "hm243695czl_min_xian";
 exports.setToken = function(username, userId){
     return new Promise((resolve, reject) => {
-        const token = jwt.sign({
+        const token = "Bearer " + jwt.sign({
             name: username,
             _id: userId
         }, signKey, {expiresIn: "1h"});
@@ -12,7 +12,7 @@ exports.setToken = function(username, userId){
 };
 exports.verToken = function(token){
     return new Promise((resolve, reject) => {
-        var info = jwt.verify(token.split(" ")[1], signKey);
+        const info = jwt.verify(token.split(" ")[1], signKey);
         resolve(info);
     })
 };

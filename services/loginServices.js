@@ -10,8 +10,8 @@ exports.login = (req, res, next) => {
     var resUsername = ""; //用户名
     var userId = ""; //用户id
     var userImg = ""; //用户头像
-    db.base(sql,params,(result) => {
-        if(result.length === 0){
+    db.base(sql,params).then(result => {
+        if(result.data.length === 0){
             //用户名不存在
             return res.json({
                 status: 500,
@@ -19,13 +19,13 @@ exports.login = (req, res, next) => {
                 data: {}
             });
         }else{
-            var data = JSON.parse(JSON.stringify(result));
-            resUsername = data[0].username;
-            userId = data[0].id;
-            userImg = db.hostUrl + "user/" + data[0].imgSrc;
+            var data = result.data[0];
+            resUsername = data.username;
+            userId = data.id;
+            userImg = db.hostUrl + "user/" + data.imgSrc;
         }
-        db.base(sqlPwd, paramsPwd, (resultPwd) => {
-            if(resultPwd.length === 0){
+        db.base(sqlPwd, paramsPwd).then(resultPwd => {
+            if(resultPwd.data.length === 0){
                 //密码错误
                 return res.json({
                     status: 500,

@@ -75,7 +75,6 @@ app.all("*", (req, res, next) => {
                 )
             }
         })
-
     }
     next();
 });
@@ -91,7 +90,7 @@ app.all("*", (req, res, next) => {
 //     if(token === undefined){
 //         return next();
 //     }else{
-//         verToken.vertoken(token).then( data => {
+//         verToken.verToken(token).then( data => {
 //             req.data = data;
 //             return next();
 //         }).catch((err) =>{
