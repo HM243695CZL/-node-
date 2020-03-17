@@ -34,6 +34,12 @@
     
     >视频库 `cloud_music_video_lib`
     
+    >配置路径 `cloud_music_config_path`
+    
+    >广场 `cloud_music_square`
+    
+    >访问路径信息 `cloud_music_visit_info`
+    
 ### 注：
   - 需要在public目录下再创建`img`文件夹用于上传文件时的保存路径
   - 和public目录同级再创建一个`log`文件夹，用于保存日志
