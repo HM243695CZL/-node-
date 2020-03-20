@@ -87,6 +87,7 @@ app.all("*", (req, res, next) => {
 // // 解析token获取用户信息
 // app.use((req, res, next) => {
 //     var token = req.headers["Authorization"];
+//     console.log(token);
 //     if(token === undefined){
 //         return next();
 //     }else{

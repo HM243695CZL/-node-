@@ -1,6 +1,7 @@
 const db = require("../sql/dbConfig");
 const uuid = require("node-uuid");
 const fs = require("fs");
+const moment = require("moment");
 exports.addUser = (req, res, next) => {
     var params = req.body;
     db.addData(
@@ -23,6 +24,7 @@ exports.addUser = (req, res, next) => {
     })
 };
 exports.getUserList = (req, res, next) => {
+    var commBeginTime = new Date().getTime();
     var page = req.query.page || 1;
     var limit = req.query.limit || 10;
     var stateRow = (page - 1) * limit;
@@ -30,6 +32,7 @@ exports.getUserList = (req, res, next) => {
     var sqlCount = "select count(*) as count from cloud_music_user";
     var totalRow = 0;
     db.base(sqlCount, "").then( resultCount => totalRow = resultCount.data[0].count).then( db.base(sql, "").then( result => {
+        var comEndTime = new Date().getTime();
         var data = result.data;
         for (var i = 0; i < data.length; i++){
             data[i].imgSrc = db.hostUrl + "user/" + data[i].imgSrc;
@@ -38,8 +41,13 @@ exports.getUserList = (req, res, next) => {
             status: 200,
             errMsg: "",
             totalRow: totalRow,
+            comList: {
+                commBeginTime,
+                comEndTime,
+                comTimeMs: comEndTime - commBeginTime + "ms",
+            },
             data: {
-                result: data
+                result: data,
             }
         })
     }))
